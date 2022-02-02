@@ -1,31 +1,75 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-function Footer() {
+
+
+function Footer({todos,setFilter,removeComplated}) {
+    const [isActive, setisActive] = useState({
+        all:true,
+        active: false,
+        complated : false
+    });
     return (
         <div>
-            <footer class="footer">
+            <footer className="footer">
 
                 {/* This should be `0 items left` by default */}
-                <span class="todo-count">
-                    <strong>2</strong>
+                <span className="todo-count">
+
+                    <strong> {todos.filter((todo) => todo.done === false).length}</strong> {' '}
                     items left
                 </span>
 
-                <ul class="filters">
+                <ul className="filters">
                     <li>
-                        <a class="selected">All</a>
+                        <a 
+                            className={isActive.all ? 'selected' :''}
+                            href="!#" 
+                            onClick={() => {
+                                setFilter();
+                                setisActive({
+                                    all:!isActive.all,
+                                    active: false,
+                                    complated : false
+                                })
+                            }}>
+                            All
+                        </a>
                     </li>
                     <li>
-                        <a>Active</a>
+                        <a 
+                            className={isActive.active ? 'selected' :''}
+                            href="!#"
+                            onClick={() => {
+                                setFilter(false);
+                                setisActive({
+                                    all:false,
+                                    active: !isActive.active,
+                                    complated : false
+                                })
+                            }}
+                            >Active
+                        </a>
                     </li>
                     <li>
-                        <a>Completed</a>
+                        <a 
+                            className={isActive.complated ? 'selected' :''}
+                            href="!#"
+                            onClick={() => {
+                                setFilter(true);
+                                setisActive({
+                                    all:false,
+                                    active: false,
+                                    complated : !isActive.complated
+                                })
+                            }}
+                            >Completed
+                        </a>
                     </li>
                 </ul>
 
                 {/* <!-- Hidden if no completed items are left ↓ --> */}
 
-                <button class="clear-completed">
+                <button className="clear-completed" onClick={()=>removeComplated()} >
                     Clear completed
                 </button>
 

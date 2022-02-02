@@ -3,10 +3,9 @@ import React from 'react'
 function Info() {
     return (
         <div>
-            <footer class="info">
-                <p>Click to edit a todo</p>
-                <p>Created by <a href="https://d12n.me/">Dmitry Sharabin</a></p>
-                <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+            <footer className="info">
+                <p>Created by Dmitry Sharabin</p>
+                <p>Developed with React by <a href="https://www.instagram.com/mucahitkok/">Mücahit Kökdemir</a> </p>
             </footer>
         </div>
     )

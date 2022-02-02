@@ -1,36 +1,32 @@
 import React from 'react'
 
-function Section() {
+function Section({todos,setTodos,deleteTodo,filter}) {
+
+    const handleCheck = (todo) => {
+        let newTodo = {id : todo.id, task : todo.task , done : !todo.done};
+        setTodos(todos.map((todo) =>(todo.id == newTodo.id ? newTodo : todo)))
+    };
+
     return (
         <div>
-            <section class="main">
-                <input class="toggle-all" type="checkbox"/>
-                <label for="toggle-all">
+            <section className="main">
+                <input className="toggle-all" type="checkbox"/>
+                <label htmlFor="toggle-all">
                     Mark all as complete
                 </label>
 
-                <ul class="todo-list">
-                    <li class="completed">
-                        <div class="view">
-                            <input class="toggle" type="checkbox"/>
-                            <label>Learn JavaScript</label>
-                            <button class="destroy"></button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="view">
-                            <input class="toggle" type="checkbox"/>
-                            <label>Learn React</label>
-                            <button class="destroy"></button>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="view">
-                            <input class="toggle" type="checkbox"/>
-                            <label>Have a life!</label>
-                            <button class="destroy"></button>
-                        </div>
-                    </li>
+                <ul className="todo-list">
+                    {   todos.filter((todo)=> filter !== undefined ? todo.done === filter : todo)
+                        .map((todo,i)=>(
+                            <li className={todo.done ? "completed" : ''} key={i}>
+                                <div className="view">
+                                    <input className="toggle" type="checkbox" checked={todo.done} readOnly onClick={() => handleCheck(todo)} />
+                                    <label>{todo.task}</label>
+                                    <button className="destroy" onClick={() => deleteTodo(todo)}></button>
+                                </div>
+                            </li>
+                        ))
+                    }
                 </ul>
 	        </section>
         </div>
