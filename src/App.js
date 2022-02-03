@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import Header from './components/Header';
 import Section from './components/Section'
 import Footer from './components/Footer';
@@ -7,17 +7,24 @@ import Info from './components/Info';
 
 function App() {
 
+  const [todos, setTodos] = useState(()=>{
+    const getTodos = localStorage.getItem("todos");
+    if(getTodos){
+      return JSON.parse(getTodos)
+    }else {
+      return []
+    }
+  });
 
-  const [todos, setTodos] = useState([
-    { id: 1, task: "Learn Javascript", done: false },
-    { id: 2, task: "Learn React", done: true },
-    { id: 3, task: "Have a life!", done: false },
-  ]);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos]);
 
   const [filter, setFilter] = useState();
 
   const addTodo = (newTodo) => {
     setTodos([newTodo, ...todos]);
+
   };
 
   const deleteTodo = (todo) => {
@@ -51,3 +58,7 @@ function App() {
 }
 
 export default App;
+
+// { id: 1, task: "Learn Javascript", done: false },
+    // { id: 2, task: "Learn React", done: true },
+    // { id: 3, task: "Have a life!", done: false },
