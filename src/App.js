@@ -1,5 +1,5 @@
 import './App.css';
-import {useState,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Section from './components/Section'
 import Footer from './components/Footer';
@@ -7,11 +7,11 @@ import Info from './components/Info';
 
 function App() {
 
-  const [todos, setTodos] = useState(()=>{
+  const [todos, setTodos] = useState(() => {
     const getTodos = localStorage.getItem("todos");
-    if(getTodos){
+    if (getTodos) {
       return JSON.parse(getTodos)
-    }else {
+    } else {
       return []
     }
   });
@@ -32,7 +32,7 @@ function App() {
   }
   const removeComplated = () => {
 
-    setTodos(todos.filter((todo)=> todo.done === false) )
+    setTodos(todos.filter((todo) => todo.done === false))
   }
 
 
@@ -43,13 +43,12 @@ function App() {
       <section className="todoapp">
         <Header addTodo={addTodo} />
 
-        <Section todos={todos} setTodos={setTodos} deleteTodo={deleteTodo} filter={filter}/>
+        <Section todos={todos} setTodos={setTodos} deleteTodo={deleteTodo} filter={filter} />
 
         <Footer todos={todos} setFilter={setFilter} removeComplated={removeComplated} />
 
-      </section>    
-
-      <Info/>
+      </section>
+      <Info />
 
     </div>
   )
